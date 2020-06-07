@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "angular-forum-5bb61": {
+      "hosting": {
+        "angular-forum": [
+          "angular-forum-5bb61"
+        ]
+      }
+    }
+  }
+}

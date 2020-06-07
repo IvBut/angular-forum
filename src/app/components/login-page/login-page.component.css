@@ -1,0 +1,72 @@
+:host{
+  width: 100%;
+}
+.component-wrapper {
+  display: flex;
+  width: 60%;
+  margin: 0 auto;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 2rem;
+  border: 1px solid var(--dark-color);
+}
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.section-header h1 {
+  margin: 0;
+}
+
+.section-header fa-icon {
+  cursor: pointer;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  padding: 2rem 0;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+form mat-form-field {
+  width: 100%;
+}
+
+
+.btn-eye {
+  border: none;
+  background: transparent;
+}
+
+.btn-eye mat-icon {
+  color: rebeccapurple;
+  font-weight: 700;
+}
+
+.btn-eye:hover {
+  cursor: pointer;
+}
+
+.social-media-wrapper {
+  width: 100%;
+  text-align: center;
+}
+
+.social-media-wrapper button {
+  display: inline-block;
+  width: 150px;
+  margin-left: 5px;
+}
+
+.submit-btn {
+  margin-top: 2rem;
+  width: 50%;
+}

@@ -1,0 +1,19 @@
+{
+  "hosting": [
+    {
+      "target": "angular-forum",
+      "public": "dist/angular-forum",
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ],
+      "rewrites": [
+        {
+          "source": "**",
+          "destination": "/index.html"
+        }
+      ]
+    }
+  ]
+}

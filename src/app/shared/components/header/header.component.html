@@ -1,0 +1,15 @@
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+      <span class="app-logo">Ang-Forum</span>
+    <div class="navigation-wrapper">
+      <mat-nav-list *ngIf="!authService.isAuthenticated()">
+        <a mat-list-item routerLink="/login" routerLinkActive="active">Login</a>
+        <a mat-list-item routerLink="/content/posts" routerLinkActive="active">Home</a>
+      </mat-nav-list>
+      <mat-nav-list *ngIf="authService.isAuthenticated()">
+        <a mat-list-item (click)="logout()">Logout</a>
+        <a mat-list-item routerLink="/content/posts" routerLinkActive="active">Home</a>
+      </mat-nav-list>
+    </div>
+  </mat-toolbar-row>
+</mat-toolbar>

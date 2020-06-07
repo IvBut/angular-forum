@@ -1,0 +1,49 @@
+<div class="component-wrapper">
+  <div class="section-header">
+    <h1>{{showRegistration? 'Registration' : 'Login'}}</h1>
+    <fa-icon [icon]="['fas','sign-in-alt']" #loginIcon size="lg" (click)="handleFormState()"></fa-icon>
+  </div>
+
+  <form [formGroup]="form">
+    <mat-form-field appearance="outline">
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="email" name="email">
+      <mat-error *ngIf="form.get('email').hasError('email') && !form.get('email').hasError('required')">
+        <em>Please enter a valid email address</em>
+      </mat-error>
+      <mat-error *ngIf="form.get('email').hasError('required')">
+        <em>Email is required!</em>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Enter your password</mat-label>
+      <input matInput [type]="hide ? 'password' : 'text'" formControlName="password">
+      <button class="btn-eye" mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+      </button>
+      <mat-error *ngIf="form.get('password').hasError('required')">
+        <em>Password is required!</em>
+      </mat-error>
+      <mat-error *ngIf="form.get('password').hasError('minLength') && !form.get('password').hasError('required')">
+        <em>Password to short!</em>
+      </mat-error>
+    </mat-form-field>
+  </form>
+
+  <div *ngIf="!showRegistration" class="social-media-wrapper">
+    <button mat-flat-button color="primary" (click)="onLogin('Google')">
+      <fa-icon #googleIcon size="lg" [icon]="['fab', 'google']"></fa-icon>
+    </button>
+    <button mat-flat-button color="primary" (click)="onLogin('Facebook')">
+      <fa-icon #googleIcon size="lg" [icon]="['fab', 'facebook']"></fa-icon>
+    </button>
+    <button mat-flat-button color="primary" (click)="onLogin('Github')">
+      <fa-icon #googleIcon size="lg" [icon]="['fab', 'github']"></fa-icon>
+    </button>
+  </div>
+  <button *ngIf="!showRegistration" class="submit-btn" mat-flat-button color="accent" [disabled]="form.invalid || disableSubmitBtn" (click)="onLogin('Email')">Login</button>
+  <button *ngIf="showRegistration" class="submit-btn" mat-flat-button color="accent" [disabled]="form.invalid || disableSubmitBtn" (click)="onSingUp()">Sign Up</button>
+</div>
+
+
