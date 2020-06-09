@@ -1,4 +1,4 @@
-<div class="component-wrapper">
+<div class="component-wrapper" *ngIf="!authFb.isAuthenticated(); else loginBlock">
   <div class="section-header">
     <h1>{{showRegistration? 'Registration' : 'Login'}}</h1>
     <fa-icon [icon]="['fas','sign-in-alt']" #loginIcon size="lg" (click)="handleFormState()"></fa-icon>
@@ -8,7 +8,7 @@
     <mat-form-field appearance="outline">
       <mat-label>Email</mat-label>
       <input matInput formControlName="email" name="email">
-      <mat-error *ngIf="form.get('email').hasError('email') && !form.get('email').hasError('required')">
+      <mat-error *ngIf="form.get('email').hasError('email') || form.get('email').hasError('pattern') && !form.get('email').hasError('required')">
         <em>Please enter a valid email address</em>
       </mat-error>
       <mat-error *ngIf="form.get('email').hasError('required')">
@@ -31,7 +31,7 @@
     </mat-form-field>
   </form>
 
-  <div *ngIf="!showRegistration" class="social-media-wrapper">
+  <div class="social-media-wrapper">
     <button mat-flat-button color="primary" (click)="onLogin('Google')">
       <fa-icon #googleIcon size="lg" [icon]="['fab', 'google']"></fa-icon>
     </button>
@@ -46,4 +46,6 @@
   <button *ngIf="showRegistration" class="submit-btn" mat-flat-button color="accent" [disabled]="form.invalid || disableSubmitBtn" (click)="onSingUp()">Sign Up</button>
 </div>
 
-
+<ng-template #loginBlock>
+  <h1 style="text-align: center">{{'You have been already sign in as ' + userNickName + '!'}}</h1>
+</ng-template>

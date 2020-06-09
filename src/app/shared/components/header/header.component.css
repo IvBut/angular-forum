@@ -6,8 +6,12 @@ mat-toolbar {
   justify-content: center;
 }
 
+mat-toolbar-row {
+  justify-content: space-between;
+}
+
 .app-logo {
-  flex: 1 1 auto;
+  flex: 0 1 auto;
 }
 
 mat-nav-list {
@@ -36,4 +40,29 @@ mat-nav-list a:hover {
 mat-nav-list a.active:hover {
   color: white;
   background-color: var(--primary-color);
+}
+
+.navigation-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.menu-btn {
+  width: auto;
+}
+
+.avatar-wrapper {
+  margin-right: 5px;
+  width: 35px;
+}
+
+.add-btn {
+  margin-right: 3rem;
+}
+
+.avatar-wrapper img{
+  display: block;
+  width: 100%;
+  height: auto;
 }

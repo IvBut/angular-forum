@@ -1,15 +1,30 @@
 <mat-toolbar color="primary">
   <mat-toolbar-row>
-      <span class="app-logo">Ang-Forum</span>
-    <div class="navigation-wrapper">
-      <mat-nav-list *ngIf="!authService.isAuthenticated()">
-        <a mat-list-item routerLink="/login" routerLinkActive="active">Login</a>
-        <a mat-list-item routerLink="/content/posts" routerLinkActive="active">Home</a>
-      </mat-nav-list>
-      <mat-nav-list *ngIf="authService.isAuthenticated()">
-        <a mat-list-item (click)="logout()">Logout</a>
-        <a mat-list-item routerLink="/content/posts" routerLinkActive="active">Home</a>
-      </mat-nav-list>
-    </div>
+    <span class="app-logo">Ang-Forum</span>
+    <mat-nav-list *ngIf="!authService.isAuthenticated()">
+      <a mat-list-item routerLink="/login" routerLinkActive="active">Login</a>
+    </mat-nav-list>
+
+      <div *ngIf="authService.isAuthenticated()" class="navigation-wrapper">
+        <button class="add-btn" mat-flat-button color="accent">Add question</button>
+        <div class="avatar-wrapper">
+          <img [src]="userImage" alt="avatar">
+        </div>
+        <button class="menu-btn" mat-icon-button [matMenuTriggerFor]="menu">
+          <span>{{userName}}</span>
+          <mat-icon>arrow_drop_down</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item>
+            <mat-icon>account_box</mat-icon>
+            <span>Profile</span>
+          </button>
+          <button mat-menu-item (click)="logout()">
+            <mat-icon>exit_to_app</mat-icon>
+            <span>Logout</span>
+          </button>
+        </mat-menu>
+      </div>
+
   </mat-toolbar-row>
 </mat-toolbar>

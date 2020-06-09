@@ -7,7 +7,9 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "build_gh_pages": "ng build --prod --base-href https://IvBut.github.io/angular-forum/",
+    "gh_pages_deploy": "ngh --dir dist/angular-forum"
   },
   "private": true,
   "dependencies": {

@@ -1,19 +1,19 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { PostPageComponent } from './post-page/post-page.component';
+import { QuestionPageComponent } from './question-page/question-page.component';
 import {RouterModule} from '@angular/router';
 import {SharedModule} from '../../../shared/shared.module';
 
 
 
 @NgModule({
-  declarations: [PostPageComponent],
+  declarations: [QuestionPageComponent],
   imports: [
     CommonModule,
     SharedModule,
     RouterModule.forChild([
-      {path: '', redirectTo: '/content/posts', pathMatch: 'full'},
-      {path: 'posts', component: PostPageComponent}
+      {path: '', redirectTo: '/content/questions', pathMatch: 'full'},
+      {path: 'questions', component: QuestionPageComponent}
     ])
   ],
   providers: []

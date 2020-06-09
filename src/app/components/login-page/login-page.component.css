@@ -1,5 +1,6 @@
 :host{
   width: 100%;
+  transform: translateY(50%);
 }
 .component-wrapper {
   display: flex;

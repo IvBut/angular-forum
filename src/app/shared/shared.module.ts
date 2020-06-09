@@ -12,6 +12,7 @@ import {far} from '@fortawesome/free-regular-svg-icons';
 import {fab} from '@fortawesome/free-brands-svg-icons';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {AuthFBService} from '../services/auth-fb.service';
+import {MatMenuModule} from '@angular/material/menu';
 
 
 
@@ -28,7 +29,8 @@ import {AuthFBService} from '../services/auth-fb.service';
     MatInputModule,
     MatIconModule,
     MatButtonModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatMenuModule
   ],
   exports: [
     FontAwesomeModule,
@@ -40,7 +42,8 @@ import {AuthFBService} from '../services/auth-fb.service';
     MatInputModule,
     MatIconModule,
     MatButtonModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatMenuModule
   ],
   providers: [AuthFBService]
 })
