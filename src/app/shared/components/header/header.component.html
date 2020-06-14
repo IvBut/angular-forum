@@ -1,12 +1,12 @@
 <mat-toolbar color="primary">
   <mat-toolbar-row>
-    <span class="app-logo">Ang-Forum</span>
+    <span class="app-logo" (click)="navigateHome()">Ang-Forum</span>
     <mat-nav-list *ngIf="!authService.isAuthenticated()">
       <a mat-list-item routerLink="/login" routerLinkActive="active">Login</a>
     </mat-nav-list>
 
       <div *ngIf="authService.isAuthenticated()" class="navigation-wrapper">
-        <button class="add-btn" mat-flat-button color="accent">Add question</button>
+        <button class="add-btn" mat-flat-button color="accent" (click)="handleAddQuestion()">Add question</button>
         <div class="avatar-wrapper">
           <img [src]="userImage" alt="avatar">
         </div>
@@ -15,6 +15,10 @@
           <mat-icon>arrow_drop_down</mat-icon>
         </button>
         <mat-menu #menu="matMenu">
+          <button mat-menu-item (click)="navigateHome()">
+            <mat-icon>home</mat-icon>
+            <span>Home</span>
+          </button>
           <button mat-menu-item>
             <mat-icon>account_box</mat-icon>
             <span>Profile</span>

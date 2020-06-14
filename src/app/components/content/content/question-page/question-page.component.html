@@ -1,2 +1,117 @@
-<p>post-page works!</p>
-{{templateStr}}
+<div class="toolbar">
+  <mat-accordion>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Settings
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <label for="settings-wrapper-id">Filters and Sort</label>
+      <div [formGroup]="form" class="settings-wrapper" id="settings-wrapper-id">
+        <div class="settings-item">
+          <label id="resolved-filter">Resolved/unresolved questions</label>
+          <mat-radio-group formControlName="questionResolveGroup"
+                           aria-labelledby="resolved-filter"
+                           class="resolve-group"
+                           [(ngModel)]="resolveFilterValue">
+            <mat-radio-button class="resolve-group-btn" value="true">
+              Resolved
+            </mat-radio-button>
+            <mat-radio-button class="resolve-group-btn" value="false">
+              Unresolved
+            </mat-radio-button>
+          </mat-radio-group>
+        </div>
+
+        <div class="settings-item">
+          <mat-form-field>
+            <mat-label>Categories</mat-label>
+            <mat-select formControlName="questionCategoryGroup" multiple [(ngModel)]="categoriesFilterValue">
+              <mat-option *ngFor="let category of categoryList" [value]="category">{{category}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="settings-item">
+          <mat-form-field>
+            <mat-label>Filter by date</mat-label>
+            <mat-select [(ngModel)]="dateFilterValue" formControlName="questionDateGroup">
+              <mat-option value="day">Day</mat-option>
+              <mat-option value="week">Week</mat-option>
+              <mat-option value="month">Month</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <mat-checkbox [(ngModel)]="myQuestionsFilterValue" formControlName="questionMineGroup">My questions</mat-checkbox>
+
+        <div *ngIf="user$ | async as user" >
+          <mat-checkbox *ngIf="user.roles.admin" [(ngModel)]="adminApproveFilterValue" formControlName="questionApproveGroup">On Moderation</mat-checkbox>
+        </div>
+
+        <button mat-icon-button color="primary" aria-label="sort direction" (click)="handleSortBtnClick()">
+          <mat-icon>{{sortDirection ? 'arrow_downward' : 'arrow_upward'}}</mat-icon>
+        </button>
+
+        <button mat-flat-button (click)="resetFilters()" class="reset-btn">
+          <mat-icon>close</mat-icon>
+        </button>
+
+      </div>
+
+
+
+      <mat-divider></mat-divider>
+
+      <label for="view-settings">Questions view settings</label>
+      <div class="question-settings-wrapper" id="view-settings">
+        <mat-slide-toggle [(ngModel)]="displayAsCards">{{displayAsCards? 'Display as tile' : 'Display as row'}}</mat-slide-toggle>
+      </div>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>
+
+<div class="questions-wrapper" *ngIf="questionsList.length > 0 && user$| async as user; else loadingBlock">
+
+  <div
+    *ngFor="let question of (questionsList | sortQuestions:sortDirection | filterQuestions: resolveFilterValue : categoriesFilterValue : dateFilterValue : adminApproveFilterValue : myQuestionsFilterValue); let i = index"
+    [class.filterBlock]="question === -1" [ngClass]="displayAsCards ? 'question' : 'question-row'">
+    <div *ngIf="question !== -1; else filterBlock">
+      <h1>{{question.title}}</h1>
+      <div class="icons-wrapper">
+        <mat-icon color="primary" *ngIf="question.isResolved">check</mat-icon>
+        <div *ngIf="question.onModeration" class="on-moderation-wrapper">
+          <mat-icon>edit</mat-icon>
+          <span>On Moderation</span>
+        </div>
+
+      </div>
+
+      <div class="date-wrapper">
+        <em>{{question.date['seconds'] * 1000 | date:'dd-MM-yyyy h:mm'}}</em>
+      </div>
+      <mat-chip-list>
+        <mat-chip *ngFor="let category of question.categories">{{category}}</mat-chip>
+      </mat-chip-list>
+
+      <div *ngIf="user.roles.admin" class="admin-controls">
+        <button *ngIf="question.onModeration" mat-flat-button color="accent">Approve</button>
+        <button mat-flat-button color="warn">Delete</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+<ng-template #loadingBlock>
+  <h1>Loading data ...</h1>
+</ng-template>
+<ng-template #filterBlock>
+  <h1 class="nothing-to-show-header">Nothing to show!</h1>
+</ng-template>
+
+
+<button class="plus-btn" (click)="handleAddClick()" mat-fab color="accent" aria-label="Add question button">
+  <mat-icon>add</mat-icon>
+</button>
+
+

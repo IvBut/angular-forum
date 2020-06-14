@@ -2,3 +2,6 @@
 <section class="container">
   <router-outlet></router-outlet>
 </section>
+<div class="spinner-wrapper" *ngIf="showSpinner">
+  <mat-spinner color="accent" diameter="64" mode="indeterminate"></mat-spinner>
+</div>

@@ -1,0 +1,132 @@
+:host {
+  width: 100%;
+}
+
+.filterBlock {
+ flex: 0 0 100%!important;
+ max-width: none!important;
+ box-shadow: none!important;
+ border: none!important;
+ text-align: center;
+}
+
+.nothing-to-show-header{
+  color: #dc0f0c;
+}
+
+
+.plus-btn {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  transform: translate(-10%,-50%);
+}
+
+.toolbar {
+  margin-bottom: 3rem;
+}
+
+.settings-wrapper {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px dashed grey;
+  padding: 1rem;
+}
+
+.settings-item {
+
+}
+
+.resolve-group {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+mat-divider {
+  margin: 1rem 0;
+}
+
+.question-settings-wrapper {
+  width: 100%;
+  padding: 1rem;
+  border: 1px dashed grey;
+}
+
+
+.questions-wrapper {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.question {
+  padding: 1.5rem 1rem;
+  flex: 0 0 calc(33% - 2rem);
+  max-width: 300px;
+  min-height: 300px;
+  margin-bottom: 2rem;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+}
+
+.question-row {
+  max-width: none;
+  flex: 0 0 100%;
+  margin-bottom: 1rem;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+  text-align: center;
+}
+
+.question-row mat-chip-list {
+  display: inline-block;
+  text-align: center;
+}
+
+.question,.question-row:hover {
+  cursor: pointer;
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+.question h1 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+mat-icon {
+  font-size: 36px;
+  width: 36px;
+  height: 36px;
+}
+
+.date-wrapper {
+  text-align: center;
+}
+
+.icons-wrapper {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.on-moderation-wrapper {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.admin-controls {
+  margin-top: 1.5rem;
+  text-align: center;
+}
+
+.admin-controls button {
+  display: inline-block;
+  margin-right: 2px;
+}

@@ -14,6 +14,7 @@ import {AngularFireAuthModule} from '@angular/fire/auth';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import {AngularFirestoreModule} from '@angular/fire/firestore';
 import {AuthGuard} from './services/auth.guard';
+import {SpinnerService} from './services/spinner.service';
 
 
 
@@ -34,7 +35,7 @@ import {AuthGuard} from './services/auth.guard';
     AngularFireAuthModule,
     FontAwesomeModule
   ],
-  providers: [AuthGuard],
+  providers: [AuthGuard, SpinnerService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

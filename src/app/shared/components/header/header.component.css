@@ -12,6 +12,12 @@ mat-toolbar-row {
 
 .app-logo {
   flex: 0 1 auto;
+  transition: all 0.3s linear;
+}
+
+.app-logo:hover {
+  cursor: pointer;
+  color: var(--primary-color);
 }
 
 mat-nav-list {

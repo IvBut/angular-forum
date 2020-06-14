@@ -13,6 +13,15 @@ import {fab} from '@fortawesome/free-brands-svg-icons';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {AuthFBService} from '../services/auth-fb.service';
 import {MatMenuModule} from '@angular/material/menu';
+import {MatSelectModule} from '@angular/material/select';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatChipsModule} from '@angular/material/chips';
+import {MatExpansionModule} from '@angular/material/expansion';
+import {MatRadioModule} from '@angular/material/radio';
+import {MatDividerModule} from '@angular/material/divider';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+
 
 
 
@@ -30,7 +39,15 @@ import {MatMenuModule} from '@angular/material/menu';
     MatIconModule,
     MatButtonModule,
     MatSnackBarModule,
-    MatMenuModule
+    MatMenuModule,
+    MatSelectModule,
+    MatProgressSpinnerModule,
+    MatChipsModule,
+    MatExpansionModule,
+    MatRadioModule,
+    MatDividerModule,
+    MatSlideToggleModule,
+    MatCheckboxModule
   ],
   exports: [
     FontAwesomeModule,
@@ -43,7 +60,15 @@ import {MatMenuModule} from '@angular/material/menu';
     MatIconModule,
     MatButtonModule,
     MatSnackBarModule,
-    MatMenuModule
+    MatMenuModule,
+    MatSelectModule,
+    MatProgressSpinnerModule,
+    MatChipsModule,
+    MatExpansionModule,
+    MatRadioModule,
+    MatDividerModule,
+    MatSlideToggleModule,
+    MatCheckboxModule
   ],
   providers: [AuthFBService]
 })

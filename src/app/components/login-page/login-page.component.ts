@@ -1,22 +1,26 @@
-import {Component, Inject, OnInit, ViewChild} from '@angular/core';
+import {Component, Inject, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {AuthFBService, AuthType} from '../../services/auth-fb.service';
 import { MatSnackBar} from '@angular/material/snack-bar';
 import {FaIconComponent} from '@fortawesome/angular-fontawesome';
 import {Router} from '@angular/router';
 import {User} from 'firebase';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-login-page',
   templateUrl: './login-page.component.html',
   styleUrls: ['./login-page.component.css']
 })
-export class LoginPageComponent implements OnInit {
+export class LoginPageComponent implements OnInit, OnDestroy {
   form: FormGroup;
   hide = true;
   userNickName = '';
   showRegistration = false;
   disableSubmitBtn = false;
+
+  lSub: Subscription;
+  sSub: Subscription;
 
   constructor(public authFb: AuthFBService, private _snackBar: MatSnackBar, public router: Router) { }
 
@@ -45,7 +49,7 @@ export class LoginPageComponent implements OnInit {
     let password = this.form.value.password;
     this.disableSubmitBtn = true;
 
-    this.authFb.signUp({email,password}).subscribe(result=> {
+    this.sSub =this.authFb.signUp({email,password}).subscribe(result=> {
       let username = !result.email ? result.displayName : result.email;
       this._snackBar.open(`You are registered as ${username}`,'Success!',{duration: 5000})
       this.handleFormState();
@@ -62,7 +66,7 @@ export class LoginPageComponent implements OnInit {
     let password = this.form.value.password;
     this.disableSubmitBtn = true;
 
-    this.authFb.login(<AuthType>type,{email,password}).subscribe(result => {
+   this.lSub = this.authFb.login(<AuthType>type,{email,password}).subscribe(result => {
       this.router.navigate(['content','questions']);
       let username = !result.email ? result.displayName : result.email;
       this.userNickName = username;
@@ -84,5 +88,15 @@ export class LoginPageComponent implements OnInit {
      this.loginIcon.rotate = null;
    }
     this.loginIcon.render();
+  }
+
+  ngOnDestroy(): void {
+    if (this.lSub){
+      this.lSub.unsubscribe();
+    }
+
+    if (this.sSub){
+      this.sSub.unsubscribe();
+    }
   }
 }
