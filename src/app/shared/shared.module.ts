@@ -21,6 +21,10 @@ import {MatRadioModule} from '@angular/material/radio';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatDialogModule} from '@angular/material/dialog';
+import {MatTreeModule} from '@angular/material/tree';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+
 
 
 
@@ -47,7 +51,9 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
     MatRadioModule,
     MatDividerModule,
     MatSlideToggleModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatDialogModule,
+    MatAutocompleteModule
   ],
   exports: [
     FontAwesomeModule,
@@ -68,7 +74,9 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
     MatRadioModule,
     MatDividerModule,
     MatSlideToggleModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatDialogModule,
+    MatAutocompleteModule
   ],
   providers: [AuthFBService]
 })

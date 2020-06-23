@@ -1,10 +1,9 @@
-import {Component, ContentChild, ElementRef, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {cateGoryList, Question} from '../../../../interfaces';
+import {cateGoryList, Question, UserMessage} from '../../../../interfaces';
 import {Router} from '@angular/router';
 import {User} from 'firebase';
 import {QuestionService} from '../services/question.service';
-import {log} from 'util';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {SpinnerService} from '../../../../services/spinner.service';
 
@@ -17,12 +16,13 @@ export class CreateQuestionPageComponent implements OnInit {
   form: FormGroup;
   categoryList: Array<string> = cateGoryList();
   disableBtn: boolean = false;
+  showUserMsg: UserMessage;
 
   constructor(public router: Router,
               public questionService: QuestionService,
               private _snackBar: MatSnackBar,
               public spinnerService: SpinnerService)
-  {}
+  { this.showUserMsg = new UserMessage(this._snackBar)}
 
   ngOnInit(): void {
     this.form = new FormGroup({
@@ -58,10 +58,10 @@ export class CreateQuestionPageComponent implements OnInit {
 
     this.questionService.addQuestion(question)
       .then(q => {
-          this.showUserMsg(`Your question: "${q.title}" is accepted. After the administrator checks your question, it will be visible to other users.`)
+          this.showUserMsg.showMsg(`Your question: "${q.title}" is accepted. After the administrator checks your question, it will be visible to other users.`)
       })
       .catch(error => {
-        this.showUserMsg(error.message,'Error');
+        this.showUserMsg.showMsg(error.message,'Error');
       })
       .finally(()=>{
         this.form.reset({categories: '', title: '', text: ''});
@@ -69,13 +69,4 @@ export class CreateQuestionPageComponent implements OnInit {
         this.spinnerService.hideSpinner();
       })
   }
-
-  showUserMsg(msg: string, type: string = 'Success'){
-    this._snackBar.open(msg, type, {
-      duration: 7000,
-      horizontalPosition: 'center',
-      verticalPosition: 'top'
-    })
-  }
-
 }

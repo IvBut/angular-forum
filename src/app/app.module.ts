@@ -15,6 +15,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import {AngularFirestoreModule} from '@angular/fire/firestore';
 import {AuthGuard} from './services/auth.guard';
 import {SpinnerService} from './services/spinner.service';
+import {AddCommentDialogComponent} from './shared/components/add-comment-dialog/add-comment-dialog.component';
+import {EditQuestionDialogComponent} from './shared/components/edit-question-dialog/edit-question-dialog.component';
 
 
 
@@ -23,7 +25,9 @@ import {SpinnerService} from './services/spinner.service';
     AppComponent,
     MainLayoutComponent,
     HeaderComponent,
-    LoginPageComponent
+    LoginPageComponent,
+    AddCommentDialogComponent,
+    EditQuestionDialogComponent
   ],
   imports: [
     BrowserModule,

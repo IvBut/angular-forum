@@ -1,0 +1,77 @@
+<div *ngIf="user$ | async as user; else loadingBlock" class="profile-wrapper">
+  <div class="info-wrapper">
+    <img src="{{user.photoURL}}" alt="{{!user.displayName ? user.displayName: user.email}}">
+    <span>{{user.displayName}}</span>
+  </div>
+  <div [formGroup]="form" class="form-wrapper">
+    <mat-form-field appearance="outline" class="form-element-wrapper">
+      <mat-label>Nickname</mat-label>
+      <input matInput value="{{user.displayName}}" formControlName="nickName">
+      <mat-error *ngIf="form.get('nickName').invalid">Enter NickName!</mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="form-element-wrapper">
+      <mat-label>Photo Reference</mat-label>
+      <input matInput type="url" value="{{user.photoURL}}" formControlName="photoUrl">
+      <mat-error *ngIf="form.get('photoUrl').invalid">Enter correct URL!</mat-error>
+    </mat-form-field>
+    <div class="form-element-wrapper">
+      <mat-expansion-panel [disabled]="!changePassword.checked" [expanded]="changePassword.checked" [hideToggle]="true">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Change Password
+          </mat-panel-title>
+          <mat-panel-description>
+            <mat-checkbox #changePassword  (change)="!changePassword.checked ? form.get('userPassword').setValue(''): null">Change</mat-checkbox>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <mat-form-field appearance="outline">
+          <mat-label>Your password</mat-label>
+          <input matInput type="password" formControlName="userPassword">
+          <mat-error *ngIf="form.get('userPassword').hasError('minlength')">Password to short!</mat-error>
+        </mat-form-field>
+      </mat-expansion-panel>
+    </div>
+    <div class="form-element-wrapper">
+      <button mat-flat-button color="accent" [disabled]="form.invalid" (click)="updateCurrentUser(user)">Update</button>
+    </div>
+    <div *ngIf="user.roles.admin" class="form-element-wrapper">
+      <mat-expansion-panel [disabled]="!changeRole.checked" [expanded]="changeRole.checked" [hideToggle]="true">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Change Password
+          </mat-panel-title>
+          <mat-panel-description>
+            <mat-checkbox #changeRole >Change</mat-checkbox>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <div class="roles-controls-wrapper">
+          <mat-form-field appearance="outline" class="example-full-width" *ngIf="filteredList.length > 0">
+            <input type="text"
+                   #search
+                   placeholder="Pick one"
+                   aria-label="Number"
+                   matInput
+                   (keypress)="filterUsers(search.value)"
+                   [matAutocomplete]="auto"
+            >
+            <mat-autocomplete #auto="matAutocomplete" (optionSelected)="displayRoles($event)">
+              <mat-option *ngFor="let option of filteredList" [value]="option.email || option.displayName" [id]="option.uid">
+                {{option.email || option.displayName}}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+          <div *ngIf="showRole">
+            <mat-checkbox [checked]="selectedUser.roles.admin" (change)="selectedUser.roles.admin = AdChk.checked" #AdChk>Admin</mat-checkbox>
+            <mat-checkbox [checked]="selectedUser.roles.guest" (change)="selectedUser.roles.guest = GsChk.checked" #GsChk>Guest</mat-checkbox>
+          </div>
+        </div>
+        <div class="form-element-wrapper"><button mat-flat-button color="accent" (click)="updateUserRole()" [disabled]="!selectedUser">Update Roles</button></div>
+      </mat-expansion-panel>
+    </div>
+  </div>
+
+
+</div>
+<ng-template #loadingBlock>
+  <h1>Loading data ...</h1>
+</ng-template>

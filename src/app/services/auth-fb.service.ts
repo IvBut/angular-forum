@@ -3,8 +3,8 @@ import {AngularFireAuth} from '@angular/fire/auth';
 import {AngularFirestore, AngularFirestoreDocument} from '@angular/fire/firestore';
 import {from, Observable, Subject} from 'rxjs';
 import {auth, User} from 'firebase';
-import {catchError, map, tap} from 'rxjs/operators';
-import {mUser, Roles} from '../interfaces';
+import {map, tap} from 'rxjs/operators';
+import {mUser} from '../interfaces';
 import {Router} from '@angular/router';
 
 
@@ -111,8 +111,8 @@ export class AuthFBService {
       const userData: mUser = {
         uid: user.uid,
         email: user.email,
-        displayName: user.displayName,
-        photoURL: user.photoURL,
+        displayName: user.displayName || user.email,
+        photoURL: user.photoURL || 'https://cdn3.vectorstock.com/i/1000x1000/05/37/error-message-skull-vector-3320537.jpg',
         emailVerified: user.emailVerified,
         roles: {
           guest: true,
@@ -155,6 +155,13 @@ export class AuthFBService {
       localStorage.clear();
       this.authState$.next('Logout');
     }
+  }
+
+
+  checkUser(): Observable<mUser> {
+    let candidate = <User>JSON.parse(localStorage.getItem('user'));
+    let candidateId = candidate.uid;
+    return this.afs.doc<mUser>(`users/${candidateId}`).valueChanges();
   }
 
 }

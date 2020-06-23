@@ -1,0 +1,40 @@
+<h1 mat-dialog-title>Edit: "{{data.q.title}}" question</h1>
+<mat-dialog-content>
+
+  <form [formGroup]="form">
+    <mat-form-field appearance="fill">
+      <mat-label>tittle</mat-label>
+      <input matInput formControlName="title" name="title">
+      <mat-error *ngIf="form.get('title').hasError('required')">
+        <em>Please enter question title!</em>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="standard">
+      <mat-label>Categories</mat-label>
+      <mat-select multiple formControlName="categories">
+        <mat-option *ngFor="let option of categoryList" [value]="option">{{option}}</mat-option>
+      </mat-select>
+      <mat-error *ngIf="form.get('categories').hasError('required')">
+        <em>Please choose some categories!</em>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Text</mat-label>
+      <textarea matInput [matTextareaAutosize]="true" [cdkAutosizeMinRows]="10" formControlName="text"></textarea>
+      <mat-error *ngIf="form.get('text').hasError('required')">
+        <em>Please enter your question!</em>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-checkbox *ngIf="data.q.isResolved" formControlName="isResolved" color="primary">Question Resolved</mat-checkbox>
+
+  </form>
+
+
+</mat-dialog-content>
+<mat-dialog-actions align="center">
+  <button mat-flat-button mat-dialog-close color="accent">Close</button>
+  <button mat-flat-button color="primary" (click)="handleEditQuestion()" [disabled]="form.invalid">Add</button>
+</mat-dialog-actions>

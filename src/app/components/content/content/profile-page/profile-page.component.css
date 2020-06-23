@@ -1,0 +1,72 @@
+:host {
+  width: 100%;
+  margin-top: 2rem;
+}
+
+.profile-wrapper {
+  width: 100%;
+  border: 1px solid var(--dark-color);
+  padding: 1.5rem 1rem;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.info-wrapper {
+  flex: 0 1 35%;
+  position: relative;
+}
+
+.info-wrapper img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.info-wrapper span {
+  display: block;
+  width: 100%;
+  text-align: center;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  padding: 3px 6px;
+  background: #673ab7;
+  color: white;
+}
+
+.form-wrapper {
+  flex: 0 1 60%;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-element-wrapper {
+  width: 100%;
+  margin-bottom: 1.2rem;
+  padding: 0;
+}
+
+.form-element-wrapper button{
+  display: block;
+  margin: 0 auto;
+}
+
+.roles-controls-wrapper {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@media screen and (max-width: 768px){
+  .info-wrapper {
+    flex: 0 1 100%;
+  }
+
+  .form-wrapper {
+    margin-top: 1rem;
+    flex:  0 1 100%;
+  }
+}

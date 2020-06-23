@@ -40,3 +40,14 @@ mat-form-field {
   display: inline-block;
   width: 75px;
 }
+
+@media screen and (max-width: 768px) {
+  :host{
+    width: 100%;
+    padding: 1rem;
+  }
+
+  .component-wrapper {
+    width: 100%;
+  }
+}

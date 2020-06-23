@@ -66,6 +66,10 @@
       <label for="view-settings">Questions view settings</label>
       <div class="question-settings-wrapper" id="view-settings">
         <mat-slide-toggle [(ngModel)]="displayAsCards">{{displayAsCards? 'Display as tile' : 'Display as row'}}</mat-slide-toggle>
+        <mat-form-field appearance="outline">
+          <mat-label>Application Color</mat-label>
+          <input type="color" matInput [(ngModel)]="appColor" (change)="handleChangeAppColor()">
+        </mat-form-field>
       </div>
     </mat-expansion-panel>
   </mat-accordion>
@@ -75,7 +79,7 @@
 
   <div
     *ngFor="let question of (questionsList | sortQuestions:sortDirection | filterQuestions: resolveFilterValue : categoriesFilterValue : dateFilterValue : adminApproveFilterValue : myQuestionsFilterValue); let i = index"
-    [class.filterBlock]="question === -1" [ngClass]="displayAsCards ? 'question' : 'question-row'">
+    [class.filterBlock]="question === -1" [ngClass]="displayAsCards ? 'question' : 'question-row'" (click)="handleNavigate(question.uid, user)">
     <div *ngIf="question !== -1; else filterBlock">
       <h1>{{question.title}}</h1>
       <div class="icons-wrapper">

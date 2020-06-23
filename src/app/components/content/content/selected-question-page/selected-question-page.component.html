@@ -1,0 +1,92 @@
+<div *ngIf="(currentQuestion$ | async) as q;">
+  <div class="question-section-wrapper">
+    <div class="question-toolbar-header"><h3>{{q.author.authorName}}</h3>
+      <h3>{{q.date['seconds'] * 1000 | date:'dd-MM-yyyy , hh:mm'}}</h3></div>
+    <h1>{{q.title}}</h1>
+    <p class="question-text">{{q.text}}</p>
+    <div class="question-footer">
+      <mat-chip-list>
+        <mat-chip color="primary" *ngFor="let category of q.categories">{{category}}</mat-chip>
+      </mat-chip-list>
+      <div *ngIf="currentUser$ | async as user"
+           class="footer-control question-footer-btns">
+        <button
+          (click)="handleAddComment(q,user)"
+          class="question-btn"
+          mat-flat-button
+          color="accent">
+          Comment
+        </button>
+        <button
+          *ngIf="user.uid === q.author.authorId"
+          (click)="handleEditQuestion(q,user)"
+          class="question-btn"
+          mat-flat-button
+          color="primary">
+          Edit
+        </button>
+        <button
+          *ngIf="user.roles.admin && q.onModeration"
+          (click)="handleApprove(q, YesNoDialog)"
+          class="question-btn"
+          mat-flat-button
+          color="accent">
+          Approve
+        </button>
+        <button
+          *ngIf="user.roles.admin"
+          (click)="handleDelete(q, YesNoDialog)"
+          class="question-btn"
+          mat-flat-button
+          color="warn">
+          Delete
+        </button>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="comments$| async as commentsList; else loadingBlock" class="comment-wrapper">
+    <h1>{{commentsList.length > 0 ? 'Comments/Answers' : 'No  comments'}}</h1>
+    <div *ngFor="let c of commentsList" class="comment">
+      <div class="comment-author">
+        <img src="{{c.author.authorPhoto}}" alt="{{c.author.authorName}}">
+        <span>{{c.author.authorName}}</span>
+      </div>
+      <div class="comment-text"><p>{{c.text}}</p>
+        <p><em>{{c.date['seconds'] * 1000 | date: "dd:MM:yyyy hh:mm"}}</em></p></div>
+      <div class="controls-wrapper">
+        <div *ngIf="!q.isResolved && q.author.authorId === this.authorId">
+          <button mat-fab color="accent" (click)="handleCommentMark(c,q,YesNoDialog)">
+            <mat-icon>done_outline</mat-icon>
+          </button>
+        </div>
+        <div>
+          <button mat-flat-button color="warn" *ngIf="this.mUser.roles.admin"
+                  (click)="handleDeleteComment(c,q, YesNoDialog)">Delete
+          </button>
+        </div>
+        <div *ngIf="c.isSolution">
+          <mat-icon class="checked-icon">check</mat-icon>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<ng-template #YesNoDialog let-dialogValue>
+  <h2 matDialogTitle>{{dialogTitle}}</h2>
+  <mat-dialog-content>
+    <p class="yes-no-content"><em>Author: </em>{{dialogValue.author.authorName}}</p>
+    <p class="yes-no-content"><em>Text: </em>{{dialogValue.text}}</p>
+    <p class="yes-no-content"><em>Date: </em>{{dialogValue.date['seconds'] * 1000 | date:"yyyy-MM-dd , hh:mm"}}</p>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button mat-flat-button mat-dialog-close color="primary">Cancel</button>
+    <button mat-flat-button color="warn" (click)="dialogRef.close('OK')">OK</button>
+  </mat-dialog-actions>
+</ng-template>
+
+
+<ng-template #loadingBlock>
+  <h1>Loading comments...</h1>
+</ng-template>

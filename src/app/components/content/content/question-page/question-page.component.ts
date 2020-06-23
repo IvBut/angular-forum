@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit, Renderer2} from '@angular/core';
 import {AuthFBService} from '../../../../services/auth-fb.service';
 import {cateGoryList, mUser, Question} from '../../../../interfaces';
-import {Router} from '@angular/router';
+import {NavigationExtras, Router} from '@angular/router';
 import {QuestionService} from '../services/question.service';
-import {Observable} from 'rxjs';
+import {Observable, Subscription} from 'rxjs';
 import {FormControl, FormGroup} from '@angular/forms';
+
 
 
 @Component({
@@ -12,7 +13,7 @@ import {FormControl, FormGroup} from '@angular/forms';
   templateUrl: './question-page.component.html',
   styleUrls: ['./question-page.component.css']
 })
-export class QuestionPageComponent implements OnInit {
+export class QuestionPageComponent implements OnInit, OnDestroy {
   templateStr: any;
   questionsList: Array<Question> = [];
   user$: Observable<mUser>;
@@ -28,20 +29,25 @@ export class QuestionPageComponent implements OnInit {
   myQuestionsFilterValue: boolean | null = false;
   sortDirection: boolean = true;
 
+  queSerSub: Subscription;
+  appColor: string = '#FFFFFF';
+
   constructor(private authFB: AuthFBService,
               private router: Router,
-              public questionService: QuestionService
-  ) {}
+              public questionService: QuestionService,
+              private render: Renderer2
+  ) {
+  }
 
   ngOnInit(): void {
-    this.user$ = this.questionService.checkUser();
-    this.questionService.getQuestions().subscribe(q=>{
-        let filteredList = new Set<string>();
-        q.forEach(item => filteredList.add(JSON.stringify(item)));
+    this.user$ = this.authFB.checkUser();
+    this.queSerSub = this.questionService.getQuestions().subscribe(q => {
+      let filteredList = new Set<string>();
+      q.forEach(item => filteredList.add(JSON.stringify(item)));
 
-        let buffer = [];
-        filteredList.forEach(element => buffer.push(<Question>JSON.parse(element)));
-         this.questionsList = [...buffer];
+      let buffer = [];
+      filteredList.forEach(element => buffer.push(<Question> JSON.parse(element)));
+      this.questionsList = [...buffer];
       console.log(this.questionsList);
     });
 
@@ -51,11 +57,11 @@ export class QuestionPageComponent implements OnInit {
       questionDateGroup: new FormControl(null),
       questionApproveGroup: new FormControl(null),
       questionMineGroup: new FormControl(null)
-    })
+    });
   }
 
   handleAddClick() {
-    this.router.navigate(['content','questions', 'create']);
+    this.router.navigate(['content', 'questions', 'create']);
   }
 
   handleSortBtnClick() {
@@ -63,12 +69,27 @@ export class QuestionPageComponent implements OnInit {
   }
 
   resetFilters() {
-    this.form.controls['questionResolveGroup'].reset();
-    this.form.controls['questionCategoryGroup'].reset();
-    this.form.controls['questionDateGroup'].reset();
-    this.form.controls['questionApproveGroup'].reset();
-    this.form.controls['questionMineGroup'].reset();
+    this.form.reset()
   }
 
 
+  handleNavigate(uid: string, user: mUser) {
+    const navigationExtras: NavigationExtras = {
+      state: {
+        question: this.questionsList.find(element => element.uid === uid),
+        user: user
+      }
+    };
+    this.router.navigate(['content', 'question', uid]);
+  }
+
+  ngOnDestroy(): void {
+    if (this.queSerSub) {
+      this.queSerSub.unsubscribe();
+    }
+  }
+
+  handleChangeAppColor() {
+    this.render.setStyle(document.body,'background-color',this.appColor);
+  }
 }

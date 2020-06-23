@@ -1,0 +1,144 @@
+:host {
+  width: 100%;
+}
+
+.question-section-wrapper {
+  width: 100%;
+  margin-top: 1rem;
+  padding: 2rem 1.5rem;
+  border: 1px solid var(--dark-color);
+}
+
+.question-toolbar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+h1 {
+  text-align: center;
+  text-transform: capitalize;
+  font-weight: 700;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--dark-color) ;
+}
+
+h3 {
+  font-weight: 600;
+  font-style: italic;
+}
+
+.question-text {
+  padding-top: 1rem;
+  text-align: left;
+  font-size: 18px;
+}
+
+.question-footer {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  justify-content:space-between;
+}
+
+.question-footer-btns {
+  flex: 0 1 70%;
+  text-align: right;
+}
+
+.question-btn {
+  min-width: 80px;
+  margin-left: 5px;
+}
+
+.comment-wrapper {
+  width: 100%;
+  margin-top: 1rem;
+  padding: 2rem 1.5rem;
+  border: 1px solid var(--dark-color);
+}
+
+.comment-wrapper h1 {
+  font-weight: 700;
+  text-align: left;
+  text-transform: capitalize;
+  display: flex;
+  flex-direction: column;
+}
+
+.comment {
+  width: 100%;
+  padding: 1rem;
+  border: 1px solid var(--dark-color);
+  margin-top: 0.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.comment-author {
+  width: 150px;
+  position: relative;
+}
+
+.comment-author img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.comment-author span {
+  padding: 2px 5px;
+  position: absolute;
+  bottom:0;
+  left: 50%;
+  background: yellow;
+  color: purple;
+  transform:translate(-50%, 0%) ;
+  width: 100%;
+  text-align: center;
+}
+
+.comment-text {
+  flex: 0 1 70%;
+  padding: 0 0.5rem;
+  text-align: center;
+  font-size: 18px;
+}
+
+.comment-text em {
+  font-weight: 700;
+}
+
+.controls-wrapper {
+  flex: 0 1 10%;
+}
+
+mat-icon.checked-icon {
+  height: 72px;
+  width: 72px;
+  color: #28a745;
+  font-size: 72px;
+}
+
+@media screen and (max-width: 992px){
+  .comment-text {
+    flex: 0 1 50%;
+  }
+}
+
+@media screen and (max-width: 768px){
+  .comment {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .comment-text {
+    margin: 1rem 0;
+  }
+}
+
+

@@ -8,6 +8,7 @@ mat-toolbar {
 
 mat-toolbar-row {
   justify-content: space-between;
+  flex-wrap: wrap;
 }
 
 .app-logo {
@@ -71,4 +72,10 @@ mat-nav-list a.active:hover {
   display: block;
   width: 100%;
   height: auto;
+}
+
+@media screen and (max-width: 500px){
+  .app-logo {
+    margin: 0 auto;
+  }
 }

@@ -1,0 +1,26 @@
+form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+input {
+  padding: 0.5rem 0;
+}
+
+textarea {
+  min-height: 100px;
+}
+
+mat-checkbox {
+  width: 100%;
+  padding-top: 0.5rem;
+}
+
+mat-checkbox ::ng-deep .mat-checkbox-inner-container {width: 32px;height: 32px;}

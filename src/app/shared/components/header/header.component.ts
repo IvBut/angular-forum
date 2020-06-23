@@ -1,7 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {AuthFBService} from '../../../services/auth-fb.service';
 import {Router} from '@angular/router';
-import {User} from 'firebase';
 import {Subscription} from 'rxjs';
 
 @Component({
@@ -31,9 +30,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   private configInit(): void{
-    let user: User = <User> JSON.parse(this.authService.sessionData);
-    this.userName = !user.email ? user.displayName : user.email;
-    this.userImage = !user.photoURL ? `https://cdn3.vectorstock.com/i/1000x1000/05/37/error-message-skull-vector-3320537.jpg` : user.photoURL;
+    this.authService.checkUser().subscribe(user => {
+      this.userImage = user.photoURL;
+      this.userName = user.displayName
+    })
   }
 
   logout() {
@@ -50,5 +50,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   handleAddQuestion() {
     this.router.navigate(['content','questions', 'create']);
+  }
+
+  navigateProfile() {
+    this.router.navigate(['content','profile']);
   }
 }

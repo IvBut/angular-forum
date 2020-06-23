@@ -1,0 +1,13 @@
+<h1 mat-dialog-title>Add your solution to: "{{data.q.title}}" question</h1>
+<mat-dialog-content>
+  <mat-form-field appearance="outline" color="primary" >
+    <mat-label>Your answer...</mat-label>
+    <textarea matInput [(ngModel)]="commentText"  required></textarea>
+    <mat-error *ngIf="!commentText" >Please, enter some values!</mat-error>
+  </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions align="center">
+  <button mat-flat-button mat-dialog-close color="accent">Close</button>
+  <button mat-flat-button color="primary" (click)="handleAddComment()" [disabled]="!commentText">Add</button>
+</mat-dialog-actions>
+

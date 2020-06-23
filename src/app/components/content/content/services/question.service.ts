@@ -1,26 +1,65 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {
   AngularFirestore,
   AngularFirestoreCollection,
-  AngularFirestoreDocument,
   DocumentChangeAction,
-  DocumentReference
+  DocumentReference, QueryDocumentSnapshot
 } from '@angular/fire/firestore';
-import {mUser, Question} from '../../../../interfaces';
-import {User} from 'firebase';
-import {combineLatest, Observable} from 'rxjs';
-import {map,switchMap} from 'rxjs/operators';
-
-
-
+import {Question} from '../../../../interfaces';
+import {combineLatest, from, Observable, Observer} from 'rxjs';
+import {bufferCount, concatMap, map, switchMap, tap} from 'rxjs/operators';
+import {AuthFBService} from '../../../../services/auth-fb.service';
 
 
 @Injectable()
 export class QuestionService {
   questionCollection: AngularFirestoreCollection<Question>;
 
-  constructor(public db: AngularFirestore) {
+  constructor(public db: AngularFirestore, public auth: AuthFBService) {
     this.questionCollection = this.db.collection<Question>('questions');
+  }
+
+  async deleteCollection(path: string): Promise<number> {
+    let totalDeleteCount = 0;
+    const batchSize = 500;
+
+    return new Promise<number>((resolve, reject) =>
+      from(this.db.collection(path).ref.get())
+        .pipe(
+          concatMap((q) => from(q.docs)),
+          bufferCount(batchSize),
+          concatMap((docs: Array<QueryDocumentSnapshot<any>>) => new Observable((o: Observer<number>) => {
+            const batch = this.db.firestore.batch();
+            docs.forEach((doc) => batch.delete(doc.ref));
+            batch.commit()
+              .then(() => {
+                o.next(docs.length);
+                o.complete();
+              })
+              .catch((e) => o.error(e));
+          })),
+        )
+        .subscribe(
+          (batchDeleteCount: number) => totalDeleteCount += batchDeleteCount,
+          (e) => {
+            console.log(e);
+            reject(e);
+          },
+          () => resolve(totalDeleteCount),
+        ),
+    );
+  }
+
+  deleteQuestion(questionId: string): Observable<void> {
+    return from(this.deleteCollection(`questions/${questionId}/comments`))
+      .pipe(
+        tap(res => console.log('RES', res)),
+        switchMap(res => from(this.db.doc<Question>(`questions/${questionId}`).delete()))
+      );
+  }
+
+  updateQuestion(question: Question): Observable<void> {
+    return from(this.db.doc<Question>(`questions/${question.uid}`).update(question));
   }
 
 
@@ -34,8 +73,12 @@ export class QuestionService {
     }
   }
 
+  getQuestionById(uid): Observable<Question> {
+    return this.db.doc<Question>(`questions/${uid}`).valueChanges();
+  }
+
   getQuestions(): Observable<Question[]> {
-    return this.checkUser()
+    return this.auth.checkUser()
       .pipe(
         switchMap(user => {
           if (user.roles.guest) {
@@ -58,23 +101,17 @@ export class QuestionService {
   }
 
 
-  private transformData(obs:  Observable<DocumentChangeAction<any>[]>) {
-    return  obs
+  private transformData(obs: Observable<DocumentChangeAction<any>[]>) {
+    return obs
       .pipe(
         map(actions => {
           return actions.map(a => {
             let data = a.payload.doc.data() as Question;
             let uid = a.payload.doc.id;
-            return { uid, ...data };
+            return {uid, ...data};
           });
 
-        }))
-  }
-
-  checkUser(): Observable<mUser> {
-    let candidate = <User>JSON.parse(localStorage.getItem('user'));
-    let candidateId = candidate.uid;
-    return this.db.doc<mUser>(`users/${candidateId}`).valueChanges();
+        }));
   }
 
 
