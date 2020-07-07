@@ -1,6 +1,6 @@
 <div *ngIf="user$ | async as user; else loadingBlock" class="profile-wrapper">
   <div class="info-wrapper">
-    <img src="{{user.photoURL}}" alt="{{!user.displayName ? user.displayName: user.email}}">
+    <img src="{{user.photoURL}}" alt="{{user.displayName ? user.displayName: user.email}}">
     <span>{{user.displayName}}</span>
   </div>
   <div [formGroup]="form" class="form-wrapper">

@@ -1,11 +1,15 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import {Question} from '../../../interfaces';
+import {mUser, Question} from '../../../interfaces';
 import {User} from 'firebase';
+import {AuthFBService} from '../../../services/auth-fb.service';
 
 @Pipe({
   name: 'filterQuestions'
 })
 export class FilterPipe implements PipeTransform {
+
+  constructor(public authService: AuthFBService) {
+  }
 
   transform(questionsList: Array<Question>,
             resolveFilterValue: string | null ,
@@ -48,7 +52,7 @@ export class FilterPipe implements PipeTransform {
      })
   }
 
-  filterQuestionByDate(questions: Question[], filterValue: string):Question[]{
+  filterQuestionByDate(questions: Question[] | any[], filterValue: string):Question[]{
     if (!filterValue) return questions;
 
     let now = new Date();
@@ -83,9 +87,11 @@ export class FilterPipe implements PipeTransform {
     return questions.filter(item => item.onModeration === filterValue);
   }
 
-  filterMyQuestions(questions: Question[], filterValue: boolean): Question[]{
-    if (!filterValue) return questions;
-    let user = <User>JSON.parse(localStorage.getItem('user'));
+  filterMyQuestions(questions: Question[], filterValue: boolean): Question[] {
+    if (!filterValue) {
+      return questions;
+    }
+    let user = <User> JSON.parse(this.authService.sessionData);
     return questions.filter(item => item.author.authorId === user.uid);
   }
 }

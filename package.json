@@ -6,6 +6,7 @@
     "start": "ng serve",
     "build": "ng build",
     "test": "ng test",
+    "test_coverege": "ng test --watch=false --code-coverage",
     "lint": "ng lint",
     "e2e": "ng e2e",
     "build_gh_pages": "ng build --prod --base-href https://IvBut.github.io/angular-forum/",

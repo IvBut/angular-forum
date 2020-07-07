@@ -26,8 +26,8 @@ export class LoginPageComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     if (this.authFb.isAuthenticated()) {
-      let user =  <User>JSON.parse(localStorage.getItem('user'));
-      this.userNickName = !user.email? user.displayName : user.email;
+      let user =  <User>JSON.parse(this.authFb.sessionData);
+      this.userNickName = user.displayName || user.email;
     }
 
 

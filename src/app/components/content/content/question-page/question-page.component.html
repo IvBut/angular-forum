@@ -12,8 +12,8 @@
           <label id="resolved-filter">Resolved/unresolved questions</label>
           <mat-radio-group formControlName="questionResolveGroup"
                            aria-labelledby="resolved-filter"
-                           class="resolve-group"
-                           [(ngModel)]="resolveFilterValue">
+                           class="resolve-group">
+                           <!--[(ngModel)]="resolveFilterValue">-->
             <mat-radio-button class="resolve-group-btn" value="true">
               Resolved
             </mat-radio-button>
@@ -26,7 +26,7 @@
         <div class="settings-item">
           <mat-form-field>
             <mat-label>Categories</mat-label>
-            <mat-select formControlName="questionCategoryGroup" multiple [(ngModel)]="categoriesFilterValue">
+            <mat-select formControlName="questionCategoryGroup" multiple>
               <mat-option *ngFor="let category of categoryList" [value]="category">{{category}}</mat-option>
             </mat-select>
           </mat-form-field>
@@ -35,7 +35,7 @@
         <div class="settings-item">
           <mat-form-field>
             <mat-label>Filter by date</mat-label>
-            <mat-select [(ngModel)]="dateFilterValue" formControlName="questionDateGroup">
+            <mat-select  formControlName="questionDateGroup">
               <mat-option value="day">Day</mat-option>
               <mat-option value="week">Week</mat-option>
               <mat-option value="month">Month</mat-option>
@@ -43,10 +43,10 @@
           </mat-form-field>
         </div>
 
-        <mat-checkbox [(ngModel)]="myQuestionsFilterValue" formControlName="questionMineGroup">My questions</mat-checkbox>
+        <mat-checkbox  formControlName="questionMineGroup">My questions</mat-checkbox>
 
         <div *ngIf="user$ | async as user" >
-          <mat-checkbox *ngIf="user.roles.admin" [(ngModel)]="adminApproveFilterValue" formControlName="questionApproveGroup">On Moderation</mat-checkbox>
+          <mat-checkbox *ngIf="user.roles.admin"  formControlName="questionApproveGroup">On Moderation</mat-checkbox>
         </div>
 
         <button mat-icon-button color="primary" aria-label="sort direction" (click)="handleSortBtnClick()">
@@ -66,9 +66,9 @@
       <label for="view-settings">Questions view settings</label>
       <div class="question-settings-wrapper" id="view-settings">
         <mat-slide-toggle [(ngModel)]="displayAsCards">{{displayAsCards? 'Display as tile' : 'Display as row'}}</mat-slide-toggle>
-        <mat-form-field appearance="outline">
+        <mat-form-field appearance="outline" class="color-control">
           <mat-label>Application Color</mat-label>
-          <input type="color" matInput [(ngModel)]="appColor" (change)="handleChangeAppColor()">
+          <input type="color" matInput [(ngModel)]="appColor" (change)="handleChangeAppColor()" >
         </mat-form-field>
       </div>
     </mat-expansion-panel>
@@ -78,7 +78,11 @@
 <div class="questions-wrapper" *ngIf="questionsList.length > 0 && user$| async as user; else loadingBlock">
 
   <div
-    *ngFor="let question of (questionsList | sortQuestions:sortDirection | filterQuestions: resolveFilterValue : categoriesFilterValue : dateFilterValue : adminApproveFilterValue : myQuestionsFilterValue); let i = index"
+    *ngFor="let question of (questionsList | sortQuestions:sortDirection | filterQuestions: form.get('questionResolveGroup').value
+                                                                                          : form.get('questionCategoryGroup').value
+                                                                                          : form.get('questionDateGroup').value
+                                                                                          : form.get('questionApproveGroup').value
+                                                                                          : form.get('questionMineGroup').value); let i = index"
     [class.filterBlock]="question === -1" [ngClass]="displayAsCards ? 'question' : 'question-row'" (click)="handleNavigate(question.uid, user)">
     <div *ngIf="question !== -1; else filterBlock">
       <h1>{{question.title}}</h1>

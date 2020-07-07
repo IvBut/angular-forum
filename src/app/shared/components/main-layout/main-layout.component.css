@@ -9,7 +9,7 @@
   z-index: 9999;
 }
 
-mat-spinner {
+.spinner-container {
   position: absolute;
   top: 50%;
   left: 50%;

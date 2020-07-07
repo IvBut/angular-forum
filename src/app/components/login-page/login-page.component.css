@@ -1,6 +1,6 @@
 :host{
   width: 100%;
-  transform: translateY(50%);
+  margin-top: 2.5rem;
 }
 .component-wrapper {
   display: flex;
@@ -10,7 +10,10 @@
   align-items: center;
   justify-content: center;
   padding: 2rem 2rem;
-  border: 1px solid var(--dark-color);
+  background: rgba(103, 58, 183, 0.2);
+  box-sizing: border-box;
+  box-shadow: 0 15px 25px rgba(0,0,0,.6);
+  border-radius: 10px;
 }
 .section-header {
   display: flex;

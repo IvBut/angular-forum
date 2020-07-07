@@ -1,12 +1,15 @@
 :host {
   width: 100%;
+  color: #673ab7;
 }
 
 .question-section-wrapper {
   width: 100%;
   margin-top: 1rem;
   padding: 2rem 1.5rem;
-  border: 1px solid var(--dark-color);
+  outline: 0.2rem solid rgba(103, 58, 183, 0.2);
+  outline-offset: 5px;
+  background: white;
 }
 
 .question-toolbar-header {
@@ -21,7 +24,7 @@ h1 {
   text-transform: capitalize;
   font-weight: 700;
   padding-bottom: 1rem;
-  border-bottom: 1px solid var(--dark-color) ;
+  border-bottom: 0.1rem solid  #673ab7;
 }
 
 h3 {
@@ -56,26 +59,31 @@ h3 {
   width: 100%;
   margin-top: 1rem;
   padding: 2rem 1.5rem;
-  border: 1px solid var(--dark-color);
+  outline: 0.2rem solid rgba(103, 58, 183, 0.2);
+  outline-offset: 5px;
+  background: rgba(103, 58, 183, 0.2);
 }
 
 .comment-wrapper h1 {
-  font-weight: 700;
+  font-weight: 900;
   text-align: left;
   text-transform: capitalize;
   display: flex;
   flex-direction: column;
+  color: white;
+  border-bottom: 0.1rem solid white;
 }
 
 .comment {
   width: 100%;
   padding: 1rem;
-  border: 1px solid var(--dark-color);
   margin-top: 0.5rem;
   display: flex;
   flex-wrap: wrap;
   align-items: flex-start;
   justify-content: flex-start;
+  background: white;
+  box-sizing: border-box;
 }
 
 .comment-author {

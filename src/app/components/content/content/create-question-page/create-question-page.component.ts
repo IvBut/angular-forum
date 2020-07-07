@@ -42,8 +42,8 @@ export class CreateQuestionPageComponent implements OnInit {
     let question: Question =  {
       author: {
         authorId: author.uid,
-        authorName: !author.email ? author.displayName : author.email,
-        authorPhoto: !author.photoURL ? 'https://cdn3.vectorstock.com/i/1000x1000/05/37/error-message-skull-vector-3320537.jpg' : author.photoURL
+        authorName: author.displayName || author.email,
+        authorPhoto: author.photoURL  || 'https://cdn3.vectorstock.com/i/1000x1000/05/37/error-message-skull-vector-3320537.jpg'
       },
       title: this.form.value.title,
       text: this.form.value.text,

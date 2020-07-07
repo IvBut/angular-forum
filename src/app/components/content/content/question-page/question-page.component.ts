@@ -14,19 +14,13 @@ import {FormControl, FormGroup} from '@angular/forms';
   styleUrls: ['./question-page.component.css']
 })
 export class QuestionPageComponent implements OnInit, OnDestroy {
-  templateStr: any;
+
   questionsList: Array<Question> = [];
   user$: Observable<mUser>;
-
-  panelOpenState: boolean = false;
+  
   form: FormGroup;
-  resolveFilterValue: string | null = null;
   categoryList: Array<string> = cateGoryList();
-  categoriesFilterValue: Array<string> = [];
   displayAsCards: boolean = true;
-  dateFilterValue: string | null = null;
-  adminApproveFilterValue: boolean | null = false;
-  myQuestionsFilterValue: boolean | null = false;
   sortDirection: boolean = true;
 
   queSerSub: Subscription;

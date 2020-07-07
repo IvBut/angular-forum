@@ -5,7 +5,8 @@
 
 .profile-wrapper {
   width: 100%;
-  border: 1px solid var(--dark-color);
+  border: 0.1rem solid #ffd740;
+  background: #fff;
   padding: 1.5rem 1rem;
   display: flex;
   align-items: flex-start;
