@@ -17,6 +17,7 @@ import {AuthGuard} from './services/auth.guard';
 import {SpinnerService} from './services/spinner.service';
 import {AddCommentDialogComponent} from './shared/components/add-comment-dialog/add-comment-dialog.component';
 import {EditQuestionDialogComponent} from './shared/components/edit-question-dialog/edit-question-dialog.component';
+import { NotFoundComponent } from './components/not-found/not-found.component';
 
 
 
@@ -27,7 +28,8 @@ import {EditQuestionDialogComponent} from './shared/components/edit-question-dia
     HeaderComponent,
     LoginPageComponent,
     AddCommentDialogComponent,
-    EditQuestionDialogComponent
+    EditQuestionDialogComponent,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,

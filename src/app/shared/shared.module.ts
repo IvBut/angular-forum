@@ -24,6 +24,7 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatTreeModule} from '@angular/material/tree';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {LayoutModule} from '@angular/cdk/layout';
 
 
 
@@ -53,7 +54,8 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
     MatSlideToggleModule,
     MatCheckboxModule,
     MatDialogModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    LayoutModule
   ],
   exports: [
     FontAwesomeModule,
@@ -76,7 +78,8 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
     MatSlideToggleModule,
     MatCheckboxModule,
     MatDialogModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    LayoutModule
   ],
   providers: [AuthFBService]
 })
