@@ -1,27 +1,4 @@
 # AngularForum
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.1.
-
-## Development server
-
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
-
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+Приложение на подобие ‘stackoverflow’, представляет собой портал на котором пользователи могут задавать вопросы на различные темы по программированию и отвечать на вопросы других пользователей. В приложении реализована авторизация и регистрация пользователей с помощью Email and Password/Facebook/ Google/ Github. Так же в приложении присутствует ролевая модель: администраторы и обычные пользователи. Перед тем как вопрос станет виден всем пользователям, он проходит модерацию у администратора. Обычный пользователь может редактировать свой вопрос и отмечать любой понравившейся ему ответ как правильный, если он считает что выбранный комментарий помог решить его задачу. Администраторы могу удалять вопросы/комментарии если они посчитают это необходимым, также они могут наделять обычных пользователей правами администратора. Также в приложении присутствует страничка профиля, на которой можно поменять свои данные (пароль, аватар, никнэйм и т.д.)
+В проекте используются технологии: Angular, Firebase, Material UI for Angular, html, css3.
